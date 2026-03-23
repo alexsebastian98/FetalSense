@@ -8,7 +8,7 @@ import { createPregnancyLog, fetchHistorySummary, fetchPregnancyLogs } from "./s
 
 const copy = {
   en: {
-    heroEyebrow: "Pregnancy Safety Dashboard",
+    heroEyebrow: "FetalSense",
     heroTitle: "Rule-based maternal risk monitoring for earlier warning detection.",
     heroText:
       "This prototype keeps risk classification deterministic and traceable. AI-style language support is limited to explanation, summarization, and translation.",
@@ -59,7 +59,7 @@ const copy = {
     loadError: "Unable to load data.",
   },
   de: {
-    heroEyebrow: "Sicherheitsdashboard Schwangerschaft",
+    heroEyebrow: "FetalSense",
     heroTitle: "Regelbasierte Risikoerkennung fuer fruehere Warnsignale in der Schwangerschaft.",
     heroText:
       "Dieser Prototyp klassifiziert Risiken deterministisch und nachvollziehbar. KI-gestuetzte Funktionen sind auf Erklaerung, Zusammenfassung und Uebersetzung begrenzt.",
@@ -185,7 +185,7 @@ export default function App() {
 
       {error ? <div className="error-banner">{error}</div> : null}
 
-      <AlertBanner assessment={assessment} copy={labels} />
+      <AlertBanner assessment={assessment} copy={labels} language={language} />
 
       <main className="main-grid">
         <LogForm
@@ -196,10 +196,10 @@ export default function App() {
           isSubmitting={isSubmitting}
           language={language}
         />
-        <RiskSummary assessment={assessment} copy={labels} />
+        <RiskSummary assessment={assessment} copy={labels} language={language} />
       </main>
 
-      <HistoryTimeline logs={logs} summary={summary} copy={labels} />
+      <HistoryTimeline logs={logs} summary={summary} copy={labels} language={language} />
     </div>
   );
 }

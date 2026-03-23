@@ -5,8 +5,13 @@ from datetime import datetime, timezone
 from typing import Any
 
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection
+from dotenv import load_dotenv
 
 from app.models.user_log import HistorySummary, PregnancyLogInput, PregnancyLogResponse, RiskSeverity, TrendPoint
+
+
+# Load environment variables from backend/.env when available.
+load_dotenv()
 
 
 MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017")

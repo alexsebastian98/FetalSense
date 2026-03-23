@@ -15,7 +15,7 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(
-    title="Pregnancy Risk Monitoring System",
+    title="FetalSense",
     version="0.1.0",
     description=(
         "Rule-based maternal risk monitoring with safe explanation and multilingual output. "

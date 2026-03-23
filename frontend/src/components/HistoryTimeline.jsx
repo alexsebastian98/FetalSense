@@ -1,8 +1,15 @@
+import { localizeAssessment } from "../services/assessmentLocalization";
+
 function scoreToHeight(score) {
   return `${32 + score * 18}px`;
 }
 
-export function HistoryTimeline({ logs, summary, copy }) {
+function formatTimestamp(timestamp, language) {
+  const locale = language === "de" ? "de-DE" : "en-US";
+  return new Date(timestamp).toLocaleString(locale);
+}
+
+export function HistoryTimeline({ logs, summary, copy, language }) {
   return (
     <section className="timeline-layout">
       <div className="panel">
@@ -15,15 +22,18 @@ export function HistoryTimeline({ logs, summary, copy }) {
 
         <div className="history-list">
           {logs.length === 0 ? <p>{copy.noHistory}</p> : null}
-          {logs.map((log) => (
-            <article key={log.id} className="history-item">
-              <div>
-                <p>{new Date(log.created_at).toLocaleString()}</p>
-                <strong>{log.assessment.overall_risk}</strong>
-              </div>
-              <p>{log.assessment.patient_explanation}</p>
-            </article>
-          ))}
+          {logs.map((log) => {
+            const localizedAssessment = localizeAssessment(log.assessment, language);
+            return (
+              <article key={log.id} className="history-item">
+                <div>
+                  <p>{formatTimestamp(log.created_at, language)}</p>
+                  <strong>{localizedAssessment.overall_risk}</strong>
+                </div>
+                <p>{localizedAssessment.patient_explanation}</p>
+              </article>
+            );
+          })}
         </div>
       </div>
 

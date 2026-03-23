@@ -1,4 +1,6 @@
-export function RiskSummary({ assessment, copy }) {
+import { localizeAssessment } from "../services/assessmentLocalization";
+
+export function RiskSummary({ assessment, copy, language }) {
   if (!assessment) {
     return (
       <section className="panel summary-empty">
@@ -9,6 +11,8 @@ export function RiskSummary({ assessment, copy }) {
     );
   }
 
+  const localizedAssessment = localizeAssessment(assessment, language);
+
   return (
     <section className="panel summary-card">
       <div className="panel-heading">
@@ -16,35 +20,35 @@ export function RiskSummary({ assessment, copy }) {
           <p className="eyebrow">{copy.summaryEyebrow}</p>
           <h2>{copy.summaryTitle}</h2>
         </div>
-        <span className={`risk-pill risk-${assessment.overall_risk.toLowerCase()}`}>
-          {assessment.overall_risk}
+        <span className={`risk-pill risk-${localizedAssessment.overall_risk.toLowerCase()}`}>
+          {localizedAssessment.overall_risk}
         </span>
       </div>
 
       <div className="summary-grid">
         <div>
           <h3>{copy.recommendation}</h3>
-          <p>{assessment.recommendation}</p>
+          <p>{localizedAssessment.recommendation}</p>
         </div>
         <div>
           <h3>{copy.patientExplanation}</h3>
-          <p>{assessment.patient_explanation}</p>
+          <p>{localizedAssessment.patient_explanation}</p>
         </div>
         <div>
           <h3>{copy.clinicalExplanation}</h3>
-          <p>{assessment.clinical_explanation}</p>
+          <p>{localizedAssessment.clinical_explanation}</p>
         </div>
         <div>
           <h3>{copy.dataSource}</h3>
-          <p>{assessment.data_source}</p>
+          <p>{localizedAssessment.data_source}</p>
         </div>
       </div>
 
       <div>
         <h3>{copy.riskFactors}</h3>
         <ul className="factor-list">
-          {assessment.risk_factors.length === 0 ? <li>{copy.noneDetected}</li> : null}
-          {assessment.risk_factors.map((factor) => (
+          {localizedAssessment.risk_factors.length === 0 ? <li>{copy.noneDetected}</li> : null}
+          {localizedAssessment.risk_factors.map((factor) => (
             <li key={`${factor.rule_id}-${factor.factor}`}>
               <strong>{factor.factor}</strong>
               <span>{factor.severity}</span>
